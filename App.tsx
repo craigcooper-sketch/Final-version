@@ -36,44 +36,17 @@ const App: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const data = null; // remove Gemini parsing for now
-      
-      if (data) {
-        const newContract: Contract = {
-          id: Math.random().toString(36).substr(2, 9),
-          name: data.name || `Imported Contract ${contracts.length + 1}`,
-          startDate: data.startDate || new Date().toISOString().split('T')[0],
-          endDate: data.endDate || new Date().toISOString().split('T')[0],
-          lineItems: (data.lineItems || []).map((item: any) => ({
-             id: Math.random().toString(36).substr(2, 9),
-             productName: item.productName || "",
-             quantity: Number(item.quantity) || 1,
-             unitPrice: Number(item.unitPrice) || 0
-          }))
-        };
-        
-        // If line items are empty after parsing, add a default one
-        if (newContract.lineItems.length === 0) {
-            newContract.lineItems.push({
-                id: Math.random().toString(36).substr(2, 9),
-                productName: "",
-                quantity: 1,
-                unitPrice: 0
-            });
-        }
+      // Skipping Gemini parsing for now
+      const data = null; 
+      if (!data) throw new Error("Could not extract data.");
 
-        setContracts(prev => [...prev, newContract]);
-        setStatus('success');
-      } else {
-        throw new Error("Could not extract data.");
-      }
     } catch (e: any) {
       console.error(e);
       setErrorMessage(e.message || "Failed to analyze contract. Ensure file is readable.");
       setStatus('error');
     } finally {
-        if (fileInputRef.current) fileInputRef.current.value = '';
-        setTimeout(() => setStatus('idle'), 3000);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      setTimeout(() => setStatus('idle'), 3000);
     }
   };
 
@@ -115,7 +88,7 @@ const App: React.FC = () => {
         
         {/* Actions Area */}
         <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* AI Upload Button */}
+            {/* Upload Button */}
             <div className="relative group">
                 <input 
                     type="file" 
@@ -172,15 +145,14 @@ const App: React.FC = () => {
         ) : (
             <div className="space-y-6">
                 {contracts.map((contract, index) => (
-                   <div key={contract.id}>
-   <p>{contract.name}</p>
-</div>
-                    />
+                    <div key={contract.id} className="border p-4 rounded-lg">
+                        <p>{contract.name}</p>
+                    </div>
                 ))}
             </div>
         )}
 
-        {/* Motive Copyright Footer */}
+        {/* Footer */}
         <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
              <svg width="28" height="24" viewBox="0 0 35 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black">
                  <path d="M10 24L5 0H0L5 24H10Z" fill="currentColor"/>
