@@ -1,0 +1,5 @@
+{
+  "name": "Motive Contract Buyout Calculator",
+  "description": "An intelligent calculator for estimating contract buyout costs for Motive prospects. Features manual entry and AI-powered contract analysis from file uploads.",
+  "requestFramePermissions": []
+}
