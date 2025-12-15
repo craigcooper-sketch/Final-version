@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { Contract, ProcessingStatus } from './types';
 import { calculateContractMetrics, formatCurrency } from './utils';
 import { PRODUCT_LIST } from './constants';
-import ContractCard from './components/ContractCard';
 import { Calculator, Loader2, Plus, Upload, FileText } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -173,12 +172,9 @@ const App: React.FC = () => {
         ) : (
             <div className="space-y-6">
                 {contracts.map((contract, index) => (
-                    <ContractCard 
-                        key={contract.id} 
-                        contract={contract} 
-                        index={index}
-                        onUpdate={(updated) => updateContract(index, updated)}
-                        onDelete={() => deleteContract(index)}
+                   <div key={contract.id}>
+   <p>{contract.name}</p>
+</div>
                     />
                 ))}
             </div>
