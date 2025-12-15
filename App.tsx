@@ -3,7 +3,6 @@ import { Contract, ProcessingStatus } from './types';
 import { calculateContractMetrics, formatCurrency } from './utils';
 import { PRODUCT_LIST } from './constants';
 import ContractCard from './components/ContractCard';
-import { parseContractWithGemini } from './services/geminiService';
 import { Calculator, Loader2, Plus, Upload, FileText } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -38,7 +37,7 @@ const App: React.FC = () => {
     setErrorMessage(null);
 
     try {
-      const data = await parseContractWithGemini(file);
+      const data = null; // remove Gemini parsing for now
       
       if (data) {
         const newContract: Contract = {
